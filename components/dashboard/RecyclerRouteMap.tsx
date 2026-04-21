@@ -72,10 +72,16 @@ function calculateOptimizedRoute(
 
   while (remaining.length > 0) {
     let nearestIndex = 0;
-    let nearestDistance = haversineDistanceKm(current, remaining[0].coordinates);
+    let nearestDistance = haversineDistanceKm(
+      current,
+      remaining[0].coordinates,
+    );
 
     for (let index = 1; index < remaining.length; index += 1) {
-      const distance = haversineDistanceKm(current, remaining[index].coordinates);
+      const distance = haversineDistanceKm(
+        current,
+        remaining[index].coordinates,
+      );
       if (distance < nearestDistance) {
         nearestDistance = distance;
         nearestIndex = index;
@@ -102,18 +108,22 @@ export function RecyclerRouteMap({
   onStopNavigation,
 }: RecyclerRouteMapProps) {
   const [leafletLoaded, setLeafletLoaded] = useState(false);
-  const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
+  const [userLocation, setUserLocation] = useState<[number, number] | null>(
+    null,
+  );
   const [recenterTick, setRecenterTick] = useState(0);
   const [leafletApi, setLeafletApi] = useState<{
-    MapContainer: typeof import("react-leaflet")["MapContainer"];
-    Marker: typeof import("react-leaflet")["Marker"];
-    Polyline: typeof import("react-leaflet")["Polyline"];
-    TileLayer: typeof import("react-leaflet")["TileLayer"];
-    Tooltip: typeof import("react-leaflet")["Tooltip"];
-    useMap: typeof import("react-leaflet")["useMap"];
+    MapContainer: (typeof import("react-leaflet"))["MapContainer"];
+    Marker: (typeof import("react-leaflet"))["Marker"];
+    Polyline: (typeof import("react-leaflet"))["Polyline"];
+    TileLayer: (typeof import("react-leaflet"))["TileLayer"];
+    Tooltip: (typeof import("react-leaflet"))["Tooltip"];
+    useMap: (typeof import("react-leaflet"))["useMap"];
     L: typeof import("leaflet");
   } | null>(null);
-  const navigationTarget = tasks.find((task) => task.id === firstActivePinId)?.coordinates;
+  const navigationTarget = tasks.find(
+    (task) => task.id === firstActivePinId,
+  )?.coordinates;
 
   useEffect(() => {
     // Esto asegura que toda la inicializacion del mapa ocurra solo en browser.
@@ -151,7 +161,11 @@ export function RecyclerRouteMap({
   }, [leafletLoaded]);
 
   useEffect(() => {
-    if (!leafletLoaded || typeof window === "undefined" || !navigator.geolocation) {
+    if (
+      !leafletLoaded ||
+      typeof window === "undefined" ||
+      !navigator.geolocation
+    ) {
       return;
     }
 
@@ -242,7 +256,7 @@ export function RecyclerRouteMap({
       .filter((task) => !task.completed)
       .map((task) => ({
         id: task.id,
-        name: `${task.title} - ${task.location}`,
+        name: `${task.location} - Punto #${task.id}`,
         coordinates: task.coordinates,
       }))
       .filter((point) => isValidLimaLandCoordinate(point.coordinates));
@@ -292,10 +306,13 @@ export function RecyclerRouteMap({
     !userLocationIcon ||
     !manualRecordIcon
   ) {
-    return <div className="h-[500px] w-full animate-pulse rounded-xl bg-slate-100" />;
+    return (
+      <div className="h-[500px] w-full animate-pulse rounded-xl bg-slate-100" />
+    );
   }
 
-  const { MapContainer, Marker, Polyline, TileLayer, Tooltip, useMap } = leafletApi;
+  const { MapContainer, Marker, Polyline, TileLayer, Tooltip, useMap } =
+    leafletApi;
 
   const MapUpdater = ({
     currentLocation,
@@ -386,7 +403,11 @@ export function RecyclerRouteMap({
           );
 
           return (
-            <Marker key={`nearby-${point.id}`} position={point.coordinates} icon={markerIcon}>
+            <Marker
+              key={`nearby-${point.id}`}
+              position={point.coordinates}
+              icon={markerIcon}
+            >
               <Tooltip direction="top" offset={[0, -24]} opacity={0.95}>
                 {isNextStop
                   ? `Siguiente Parada: ${point.name} (${distanceLabel} km)`
@@ -441,7 +462,9 @@ export function RecyclerRouteMap({
           <div className="absolute bottom-3 left-3 right-3 rounded-2xl border border-white/45 bg-white/70 px-4 py-3 shadow-lg backdrop-blur-md">
             <div className="flex items-center justify-between gap-3">
               <div className="text-sm text-slate-700">
-                <span className="font-semibold text-slate-900">ETA: {etaLabel}</span>
+                <span className="font-semibold text-slate-900">
+                  ETA: {etaLabel}
+                </span>
                 <span className="ml-3">Distancia: {distanceLabel}</span>
               </div>
               <button
