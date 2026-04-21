@@ -1,87 +1,90 @@
 # JOURNEY LOG - AdoptAI Technical Challenge
 
-Este documento registra prompts, decisiones, iteraciones y dead ends del proceso.
-El objetivo es demostrar criterio de producto, razonamiento tecnico y uso de IA.
+Este documento registra el proceso iterativo, las decisiones técnicas, los desafíos resueltos y el razonamiento de negocio detrás del desarrollo de **AdoptAI**.
 
 ---
 
-## 2026-04-21 - Bootstrap inicial
+## 📅 2026-04-21 - Bootstrap y Resiliencia Técnica
 
-### Prompt objetivo
+### 🚀 Acción inicial
 
-"Generar boilerplate inicial con Next.js 15 (App Router), Tailwind y TypeScript; incluir narrativa de negocio, bitacora y dashboard de impacto."
+- Inicialización del proyecto con **Next.js 15 (App Router)**, Tailwind CSS y TypeScript.
+- Configuración de estructura modular: `/components`, `/lib`, `/types`.
 
-### Decisiones tecnicas tomadas
+### ❌ El Problema: Windows vs. Node.js
 
-- Se usa `create-next-app` con App Router y TypeScript para acelerar base productiva.
-- Se define estructura modular desde el dia cero:
-  - `components`: UI reutilizable.
-  - `lib`: datos simulados, utilidades y logica transversal.
-  - `types`: contratos de datos para mantener consistencia.
-- Se implementa dashboard inicial con foco ejecutivo (B2B + ESG), no solo visual.
+Errores críticos de instalación con `@tailwindcss/oxide` y binarios nativos. Conflictos de "File Locking" impedían la gestión de dependencias.
 
-### Razonamiento de negocio
+### 🛠️ Decisión Técnica
 
-- El MVP debe comunicar valor rapidamente a stakeholders no tecnicos:
-  - Eficiencia logistica (rutas, kilometros, capacidad operativa).
-  - Calidad de material recuperado (menos contaminacion).
-  - Impacto ESG medible (CO2 evitado y trazabilidad auditable).
-
-### Dead ends / riesgos detectados
-
-- La maquina local corre Node 18 y Next.js 15+ recomienda Node 20.9+.
-- El scaffold se genera, pero ejecutar y validar build puede fallar hasta actualizar Node.
-- Mitigacion: actualizar runtime antes de pruebas CI/CD y demo final.
-
-### Proximos pasos sugeridos
-
-1. Subir Node a version compatible.
-2. Definir modelo de dominio (`Building`, `Pickup`, `Recycler`, `Route`, `MaterialBatch`).
-3. Conectar datos mock a una capa API local.
-4. Agregar grafica temporal de impacto y estado de rutas.
+- Migración de PowerShell a **CMD como Administrador** para forzar la limpieza de `node_modules`.
+- Implementación de una estrategia de limpieza agresiva y gestión de procesos huérfanos del SO para permitir la compilación.
+- **Aprendizaje:** Un ingeniero debe dominar su entorno de trabajo antes de escribir la primera línea de lógica.
 
 ---
 
-## 📅 2026-04-21 - Ajuste de Políticas de Ejecución (Windows PowerShell)
+## 📅 2026-04-21 - Evolución de Producto: Enfoque Multi-Persona
 
-### ❌ El Problema
+### 🧠 Criterio de Negocio
 
-Al intentar levantar el servidor de desarrollo (`npm run dev`), el sistema bloqueó la ejecución de scripts (`UnauthorizedAccess`).
+Se decidió evolucionar de una "Landing Page" estática a una **Plataforma B2B Operativa** dividida en tres roles clave para la cadena de reciclaje:
 
-### 🛠️ Decisión
+1. **Ejecutivo:** Dashboard de impacto ESG y cumplimiento.
+2. **Encargado:** Gestión de activos, alertas de contenedores y registro de campo.
+3. **Reciclador:** UX móvil orientada a la navegación y eficiencia en ruta.
 
-Se ajustó la política de ejecución de scripts de PowerShell (`Set-ExecutionPolicy RemoteSigned -Scope CurrentUser`).
+---
 
-### ✅ Resultado
+## 📅 2026-04-21 - Implementación de Mapas y Desafíos SSR
 
-El entorno está plenamente operativo. El comando `npm run dev` ahora se ejecuta sin restricciones de seguridad del sistema operativo.
+### ❌ El Problema: Hydration Errors
+
+Leaflet.js requiere acceso al objeto `window`, el cual no existe durante el renderizado del lado del servidor (SSR) de Next.js, causando el error `window is not defined`.
+
+### 🛠️ Decisión Técnica
+
+- Uso de **Dynamic Imports** (`next/dynamic`) con la opción `{ ssr: false }`.
+- Implementación de un "Loading State" con esqueletos de CSS para mejorar la percepción de carga mientras el mapa se inicializa en el cliente.
+
+---
+
+## 📅 2026-04-21 - Optimización de Rutas y Data Science
+
+### ❌ El Problema: Caos Geoespacial
+
+La generación aleatoria inicial ubicaba puntos en el océano y creaba rutas ineficientes (líneas cruzadas) que no servían para una operación real.
+
+### 🛠️ Solución Algorítmica
+
+- **Geofencing Manual:** Se estableció una lista maestra de coordenadas reales en **Barranco, Miraflores, San Miguel y Chorrillos**, asegurando que los puntos siempre caigan en tierra firme.
+- **Algoritmo de Vecino más Cercano (Greedy TSP):** Implementación de una heurística de optimización de rutas donde el punto inicial es la ubicación real del usuario y cada parada subsiguiente es el nodo más cercano no visitado.
+- **Top-K Filtering:** Se limitó la ruta activa a un máximo de **5 puntos** para reducir la carga cognitiva del reciclador y asegurar la operatividad del MVP.
 
 ### 🧠 Aprendizaje
 
-## Como Vibe Engineer, entiendo que el entorno local a menudo requiere configurar permisos de seguridad del SO. Documentar este paso es crítico para que cualquier otro desarrollador que clone este repo pueda levantar el proyecto sin los mismos bloqueos.
+En logística urbana, "menos es más". Filtrar por densidad y cercanía real aporta más valor que mostrar cientos de puntos desordenados.
 
-## Template para futuras entradas
+---
 
-### Fecha
+## 📅 2026-04-21 - Registro Operativo y Normalización
 
-- yyyy-mm-dd
+### 🚀 Acción
 
-### Prompt
+Desarrollo del **Formulario de Registro de Recolección** en la Vista Encargado.
 
-- ...
+### 🛠️ Detalles Técnicos
 
-### Decision
+- **Parser de Cantidades:** Lógica para transformar entradas de lenguaje natural (ej: "3 sacos", "10 kg") en valores numéricos normalizados para analítica.
+- **Geolocalización Reactiva:** Uso de la API `navigator.geolocation` para situar nuevos puntos de reciclaje informal detectados en campo.
+- **Fix de UI:** Resolución de errores de escala en gráficos de Recharts mediante el uso de `ResponsiveContainer` y manejo de estados asíncronos.
 
-- ...
+---
 
-### Resultado
+## 🎯 Conclusión Técnica
 
-- ...
+El MVP de **AdoptAI** demuestra capacidad para manejar:
 
-### Dead end
-
-- ...
-
-### Aprendizaje
-
-- ...
+- **Frameworks modernos:** Next.js 15 y Tailwind.
+- **Algoritmia:** Optimización de rutas y grafos.
+- **Logística Urbana:** Gestión de datos geoespaciales reales en Lima, Perú.
+- **Resiliencia:** Resolución de bloqueos de bajo nivel en el entorno de desarrollo.

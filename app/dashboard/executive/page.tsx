@@ -1,5 +1,5 @@
 import { ExecutiveDashboard } from "@/components/dashboard/ExecutiveDashboard";
 
-export function DashboardOverview() {
+export default function ExecutivePage() {
   return <ExecutiveDashboard />;
 }
