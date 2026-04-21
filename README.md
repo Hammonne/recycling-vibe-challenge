@@ -1,53 +1,68 @@
-# AdoptAI Challenge: Smart Recycling Platform
+# AdoptAI Challenge: Smart Recycling Platform ♻️
 
-## Problema de negocio
+Este repositorio contiene el MVP de la plataforma AdoptAI, una herramienta operativa para la gestión de reciclaje urbano en Lima, Perú.
 
-La recoleccion urbana en edificios residenciales sigue siendo fragmentada:
+---
 
-- Los administradores no tienen visibilidad de cumplimiento por edificio.
-- Los recicladores operan con rutas suboptimas y poca predictibilidad.
-- La calidad del material recuperado se degrada por contaminacion en origen.
+## 📄 JOURNEY LOG (Bitácora de Desarrollo)
 
-Esto genera costos logisticos altos, baja trazabilidad y reportes ESG poco confiables para actores B2B (administraciones, operadores de residuos, inmobiliarias y aliados corporativos).
+### 📅 Fase 1: Setup y Resiliencia Técnica
 
-## Propuesta de valor
+- **El Bloqueo:** Fallos críticos en la instalación de dependencias nativas en Windows (`@tailwindcss/oxide`) y bloqueos de archivos en PowerShell.
+- **La Solución:** Limpieza profunda de `node_modules`, gestión de procesos del SO vía `cmd` como Administrador y forzado de caché de npm.
+- **Aprendizaje:** La ingeniería de software comienza dominando el entorno de trabajo.
 
-Construir una plataforma digital que conecte administradores de edificios con recicladores mediante:
+### 📅 Fase 2: Arquitectura Multi-Rol
 
-- **Orquestacion de recolecciones** con ventanas y frecuencia por edificio.
-- **Rutas optimizadas** para reducir kilometraje, costo operativo y emisiones.
-- **Trazabilidad punta a punta** para auditar retiros, volumen y calidad de material.
-- **Tablero de impacto ESG** con metricas accionables para decisiones comerciales.
+Se transformó la landing estática en un sistema operativo con tres frentes:
 
-## Entregables del reto
+1. **Ejecutivo:** Dashboard de impacto ESG.
+2. **Encargado:** Registro de recolecciones y alertas de contenedores.
+3. **Reciclador:** Logística de campo con navegación real.
 
-Este repositorio inicial incluye:
+### 📅 Fase 3: Logística y Algoritmia (Data Science Path)
 
-1. Boilerplate en Next.js 15 (App Router), TypeScript y Tailwind CSS.
-2. Estructura de carpetas para escalabilidad: `components`, `lib`, `types`.
-3. Dashboard base en `app/page.tsx` con metricas simuladas:
-   - Kg reciclados.
-   - CO2 evitado.
-   - Indicadores operativos de trazabilidad y calidad.
-4. Bitacora de decisiones y prompts en `JOURNEY.md` para evidenciar AI Usage y razonamiento tecnico.
+- **Fix SSR:** Solución al error `window is not defined` mediante carga dinámica de componentes de mapas para evitar conflictos con el servidor de Next.js.
+- **Geolocalización Real:** Integración con la API del navegador para situar al usuario en el mapa de Lima y generar puntos de interés en tierra firme (Barranco, Miraflores, San Miguel, Chorrillos).
+- **Algoritmo de Optimización de Ruta:** Implementación de la heurística de "Vecino más cercano" (Nearest Neighbor) para encadenar los puntos de forma lógica, evitando cruces ineficientes.
+- **Filtrado Top-5:** Selección estricta de las 5 tareas más cercanas para garantizar un flujo de trabajo manejable y visualmente limpio.
 
-## Stack tecnico
+---
 
-- Next.js (App Router)
-- TypeScript
-- Tailwind CSS
+## 🚀 PROPUESTA DE VALOR DEL MVP
 
-## Como correr el proyecto
+### 1. Dashboard Ejecutivo
+
+Visualización de Kg reciclados, CO2 evitado y métricas de calidad de material para cumplimiento de estándares ESG corporativos.
+
+### 2. Gestión del Encargado
+
+- **Registro Inteligente:** Formulario para ingresar recolecciones manuales.
+- **Normalización:** Lógica para procesar entradas como "3 sacos" o "10 kg" y convertirlas a datos métricos.
+- **Monitoreo:** Panel de alertas para contenedores que superan el 90% de su capacidad.
+
+### 3. Operación del Reciclador
+
+- **Navegación Interactiva:** Mapa dinámico con Leaflet que traza la ruta óptima entre los 5 puntos más cercanos.
+- **Modo "Comenzar":** Simulación de navegación estilo Google Maps que guía al usuario punto por punto por las calles de Lima.
+
+---
+
+## 🛠️ STACK TÉCNICO
+
+- **Framework:** Next.js 15 (App Router)
+- **Lenguaje:** TypeScript
+- **Estilos:** Tailwind CSS
+- **Mapas:** Leaflet.js
+- **Gráficos:** Recharts
+
+## ⚙️ INSTALACIÓN
 
 ```bash
 npm install
 npm run dev
 ```
 
-Luego abre `http://localhost:3000`.
+Luego abre http://localhost:3000.
 
-## Enfoque esperado en siguientes iteraciones
-
-- Integracion de simulador de rutas (heuristicas + restricciones por edificio).
-- Modelo de datos para eventos de recoleccion y score de calidad de material.
-- Flujos B2B: onboarding de edificios, asignacion de recicladores y reporte ESG exportable.
+Desarrollado por Jimena - Estudiante de Data Science en UTEC (2026).
