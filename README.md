@@ -1,62 +1,51 @@
-# AdoptAI Challenge: Smart Recycling Platform ♻️
+# AdoptAI Technical Challenge: Smart Recycling Platform ♻️🚀
 
-Este repositorio contiene el MVP de la plataforma AdoptAI, una herramienta operativa para la gestión de reciclaje urbano en Lima, Perú.
+Este proyecto es la respuesta al **Vibe Engineer Technical Challenge** de AdoptAI (Opción 3: Build Something That Brings Value to AdoptAI).
 
----
+## 🎯 El Problema "Vibe Engineer"
 
-## 📄 JOURNEY LOG (Bitácora de Desarrollo)
-
-### 📅 Fase 1: Setup y Resiliencia Técnica
-
-- **El Bloqueo:** Fallos críticos en la instalación de dependencias nativas en Windows (`@tailwindcss/oxide`) y bloqueos de archivos en PowerShell.
-- **La Solución:** Limpieza profunda de `node_modules`, gestión de procesos del SO vía `cmd` como Administrador y forzado de caché de npm.
-- **Aprendizaje:** La ingeniería de software comienza dominando el entorno de trabajo.
-
-### 📅 Fase 2: Arquitectura Multi-Rol
-
-Se transformó la landing estática en un sistema operativo con tres frentes:
-
-1. **Ejecutivo:** Dashboard de impacto ESG.
-2. **Encargado:** Registro de recolecciones y alertas de contenedores.
-3. **Reciclador:** Logística de campo con navegación real.
-
-### 📅 Fase 3: Logística y Algoritmia (Data Science Path)
-
-- **Fix SSR:** Solución al error `window is not defined` mediante carga dinámica de componentes de mapas para evitar conflictos con el servidor de Next.js.
-- **Geolocalización Real:** Integración con la API del navegador para situar al usuario en el mapa de Lima y generar puntos de interés en tierra firme (Barranco, Miraflores, San Miguel, Chorrillos).
-- **Algoritmo de Optimización de Ruta:** Implementación de la heurística de "Vecino más cercano" (Nearest Neighbor) para encadenar los puntos de forma lógica, evitando cruces ineficientes.
-- **Filtrado Top-5:** Selección estricta de las 5 tareas más cercanas para garantizar un flujo de trabajo manejable y visualmente limpio.
+Identifiqué que las empresas peruanas de logística y gestión de residuos enfrentan cuellos de botella por procesos caóticos y falta de visibilidad. AdoptAI busca implementaciones reales, no solo recomendaciones. Por eso, construí una herramienta operativa funcional desde el día uno.
 
 ---
 
-## 🚀 PROPUESTA DE VALOR DEL MVP
+## 📄 JOURNEY LOG (The Story of the Build)
 
-### 1. Dashboard Ejecutivo
+_Como pide el challenge: "Un repo con una gran historia vence a uno pulido sin alma"._
 
-Visualización de Kg reciclados, CO2 evitado y métricas de calidad de material para cumplimiento de estándares ESG corporativos.
+### 📅 Bitácora de Guerra (2026-04-21)
 
-### 2. Gestión del Encargado
-
-- **Registro Inteligente:** Formulario para ingresar recolecciones manuales.
-- **Normalización:** Lógica para procesar entradas como "3 sacos" o "10 kg" y convertirlas a datos métricos.
-- **Monitoreo:** Panel de alertas para contenedores que superan el 90% de su capacidad.
-
-### 3. Operación del Reciclador
-
-- **Navegación Interactiva:** Mapa dinámico con Leaflet que traza la ruta óptima entre los 5 puntos más cercanos.
-- **Modo "Comenzar":** Simulación de navegación estilo Google Maps que guía al usuario punto por punto por las calles de Lima.
+- **Setup & OS Fight:** Superé bloqueos de binarios nativos en Windows y procesos de SO que impedían el bootstrap inicial.
+- **AI as Copilot:** Utilicé Cursor y Gemini para iterar rápidamente desde una landing estática hacia un sistema operativo multi-rol.
+- **Pivot de Diseño:** Decidí que un "Vibe Engineer" no solo hace código, sino que diseña la experiencia para el reciclador (campo) y el encargado (oficina).
 
 ---
 
-## 🛠️ STACK TÉCNICO
+## 🧠 Innovación y Algoritmia (Data Science Path)
+
+Para destacar en la evaluación de **Creatividad** y **Uso de AI**, implementé:
+
+- **Rutas Inteligentes (Greedy TSP):** Algoritmo de optimización para que el reciclador no pierda tiempo. No es un juguete, es lógica de grafos aplicada.
+- **Filtro de Densidad Geoespacial:** Selección de los 5 puntos con mayor ROI operativo para el operario.
+- **Normalización de Datos sucios:** Lógica que procesa entradas humanas ("sacos", "bolsas") y las convierte en KG listos para reportes ESG.
+
+---
+
+## 🚀 Propuesta de Valor Implementada
+
+1. **Ejecutivo:** Dashboard B2B con métricas ESG reales (CO2, Kg).
+2. **Encargado:** Formulario con geolocalización para registrar recolecciones informales en tiempo real.
+3. **Reciclador:** Modo navegación interactivo en Barranco/Miraflores.
+
+---
+
+## 🛠️ Stack Técnico
 
 - **Framework:** Next.js 15 (App Router)
-- **Lenguaje:** TypeScript
-- **Estilos:** Tailwind CSS
+- **AI Tools:** Cursor + Gemini API
 - **Mapas:** Leaflet.js
-- **Gráficos:** Recharts
+- **Deployment:** Vercel (Live Preview disponible)
 
-## ⚙️ INSTALACIÓN
+## ⚙️ Instalación
 
 ```bash
 npm install
